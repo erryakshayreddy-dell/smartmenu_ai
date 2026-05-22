@@ -11,7 +11,7 @@ load_dotenv()   # reads .env file into environment variables
 app = Flask(__name__)
 CORS(app)       # allows React (localhost:5173) to call this server
 
-# Initialize Claude client using key from .env
+# Initialize Gemini client using key from .env
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.5-flash")
 # ── File-based storage ─────────────────────────────────────────────────

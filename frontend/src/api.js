@@ -30,3 +30,26 @@ async function request(path, options = {}) {
     throw err
   }
 }
+export async function saveProfile(profile) {
+  return request('/api/profile', {
+    method: 'POST',
+    body: JSON.stringify(profile),
+  })
+}
+
+export async function loadProfile() {
+  return request('/api/profile')
+}
+export async function getRecommendation(payload) {
+  return request('/api/recommend', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export async function getMessPlan(payload) {
+  return request('/api/mess-plan', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}

@@ -1,13 +1,18 @@
-// Add this before createRoot line
-import { Toaster } from 'react-hot-toast'
-// Install first: npm install react-hot-toast
+import React, { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App'
+import './index.css'
 
-// Wrap App with Toaster:
+import { Toaster } from 'react-hot-toast'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <>
       <App />
-      <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+      <Toaster
+        position="top-right"
+        toastOptions={{ duration: 3000 }}
+      />
     </>
-  </StrictMode>,
+  </StrictMode>
 )

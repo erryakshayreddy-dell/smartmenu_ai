@@ -1,4 +1,5 @@
 import { addMealLog } from '../store'
+import toast from 'react-hot-toast'
 
 /*
   This component receives the AI recommendation object (data prop)
@@ -18,19 +19,18 @@ export default function ResultsPanel({ data, onLogged }) {
   const nutrition = data.nutrition || {}
 
   const handleLog = () => {
-    // Save the meal to localStorage via store.js
-    addMealLog({
-      name:     (meal.items || []).join(' + '),
-      calories: nutrition.calories || 0,
-      protein:  nutrition.protein  || 0,
-      carbs:    nutrition.carbs    || 0,
-      fat:      nutrition.fat      || 0,
-    })
-    // Tell the parent component a meal was logged
-    if (onLogged) onLogged()
-    import toast from 'react-hot-toast'
-// ...
-toast.success('Meal logged! Check your Tracker.')
+  addMealLog({
+    name: (meal.items || []).join(' + '),
+    calories: nutrition.calories || 0,
+    protein: nutrition.protein || 0,
+    carbs: nutrition.carbs || 0,
+    fat: nutrition.fat || 0,
+  })
+
+  if (onLogged) onLogged()
+
+  toast.success('Meal logged! Check your Tracker.')
+}
   return (
     <div className="space-y-4 mt-6">
 
