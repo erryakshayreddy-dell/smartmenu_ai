@@ -10,8 +10,14 @@ load_dotenv()   # reads .env file into environment variables
 
 app = Flask(__name__)
 CORS(app)       # allows React (localhost:5173) to call this server
+@app.route("/")
+def home():
+    return jsonify({
+        "status": "ok",
+        "message": "SmartMenu AI Backend Running"
+    })
 
-# Initialize Gemini client using key from .env
+# Initialize Claude client using key from .env
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.5-flash")
 # ── File-based storage ─────────────────────────────────────────────────
@@ -290,10 +296,11 @@ def week_log():
     return jsonify({"weekly": result})
 
 if __name__ == "__main__":
-    # Validate API key exists before starting
     if not os.getenv("GEMINI_API_KEY"):
-        raise ValueError("GEMINI_API_KEY not found in .env file!")
+        print("WARNING: GEMINI_API_KEY not found")
 
-    print("SmartMenu backend starting at http://localhost:5000")
+    port = int(os.environ.get("PORT", 5000))
 
-    app.run(debug=True, port=5000, host="0.0.0.0")
+    print(f"SmartMenu backend starting on port {port}")
+
+    app.run(host="0.0.0.0", port=port)
