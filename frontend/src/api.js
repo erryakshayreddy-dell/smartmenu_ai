@@ -6,50 +6,50 @@
 
 // In development: localhost:5000 (Person B's Flask server)
 // In production: your Render URL (changed on Day 7)
-const BASE = 'http://localhost:5000'
-
+const BASE =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 /*
   Helper function — every API call goes through this.
   It handles the repetitive parts: setting headers, parsing JSON,
   and throwing an error if the server returns a failure status.
 */
 async function request(path, options = {}) {
-  try {
-    const response = await fetch(BASE + path, {
-      headers: { 'Content-Type': 'application/json' },
-      ...options,
-    })
-    const data = await response.json()
-    if (!response.ok) throw new Error(data.error || 'Server error')
-    return data
-  } catch (err) {
-    // Network error (backend not running)
-    if (err.name === 'TypeError') {
-      throw new Error('Cannot reach server. Make sure the backend is running.')
-    }
-    throw err
+  const response = await fetch(BASE + path, {
+    headers: { 'Content-Type': 'application/json' },
+    ...options,
+  })
+  const data = await response.json()
+  if (!response.ok) {
+    // Throw the server's error message so components can catch it
+    throw new Error(data.error || 'Server error')
   }
-}
-export async function saveProfile(profile) {
-  return request('/api/profile', {
-    method: 'POST',
-    body: JSON.stringify(profile),
-  })
+  return data
 }
 
-export async function loadProfile() {
-  return request('/api/profile')
-}
-export async function getRecommendation(payload) {
-  return request('/api/recommend', {
-    method: 'POST',
-    body: JSON.stringify(payload),
-  })
-}
+// Save user profile
+export const saveProfile = (profile) =>
+  request('/api/profile', { method: 'POST', body: JSON.stringify(profile) })
 
-export async function getMessPlan(payload) {
-  return request('/api/mess-plan', {
+// Get AI recommendation for a menu
+export const getRecommendation = (menu, profile) =>
+  request('/api/recommend', {
     method: 'POST',
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ menu, profile }),
   })
-}
+
+// Log a meal
+export const logMeal = (meal) =>
+  request('/api/log', { method: 'POST', body: JSON.stringify(meal) })
+
+// Get today's meal log
+export const getTodayLog = () => request('/api/log/today')
+
+// Get weekly calorie data
+export const getWeeklyLog = () => request('/api/log/week')
+
+// Get mess plan
+export const getMessPlan = (weeklyMenu, profile) =>
+  request('/api/mess-plan', {
+    method: 'POST',
+    body: JSON.stringify({ weekly_menu: weeklyMenu, profile }),
+  })
