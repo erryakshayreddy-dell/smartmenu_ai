@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "id": 1,
+      "loggedAt": "2026-05-13T15:11:25.473715",
+      "date": "2026-05-13",
+      "name": "Dal Rice",
+      "calories": 350,
+      "protein": 12,
+      "carbs": 60,
+      "fat": 4
+    },
+    {
+      "id": 2,
+      "loggedAt": "2026-05-13T15:11:42.687979",
+      "date": "2026-05-13",
+      "name": "Roti + Paneer",
+      "calories": 400,
+      "protein": 18,
+      "carbs": 42,
+      "fat": 14
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "user1": {
+    "age": "55",
+    "weight": "45",
+    "height": "170",
+    "gender": "female",
+    "diet": "non-vegetarian",
+    "allergies": "gluten",
+    "budget": "964",
+    "goal": "muscle_gain",
+    "calorieTarget": 1918
+  }
+}

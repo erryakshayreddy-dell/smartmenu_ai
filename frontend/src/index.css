@@ -1,0 +1,15 @@
+/* These 3 lines are ALL you need — Tailwind generates everything else */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global base styles */
+@layer base {
+  body {
+    @apply font-sans antialiased bg-gray-50 text-gray-900;
+  }
+}
+/* Spinner animation — used on MenuPage */
+.border-3 { border-width: 3px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.animate-spin { animation: spin 0.8s linear infinite; }
