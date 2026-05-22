@@ -9,7 +9,18 @@ from collections import defaultdict
 load_dotenv()   # reads .env file into environment variables
 
 app = Flask(__name__)
-CORS(app)       # allows React (localhost:5173) to call this server
+import os
+
+# Allow both local dev and the live Netlify URL
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            os.environ.get("FRONTEND_URL", "https://smartmenuai.netlify.app")
+        ]
+    }
+})      # allows React (localhost:5173) to call this server
 @app.route("/")
 def home():
     return jsonify({
